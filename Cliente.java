@@ -26,6 +26,10 @@ public class Cliente {
         this.email = email;
         this.listaEnvios = new ListaEnvios(maxEnvios);
     }
+
+
+
+    
     public String getNombre() {
         return nombre;
     }
