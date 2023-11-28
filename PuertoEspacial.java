@@ -60,13 +60,14 @@ public class PuertoEspacial {
      */
     public double distancia(PuertoEspacial destino) {
         // TODO: Para calcular la distancia entre dos Puertos Espaciales, se transforman sus coordenadas esféricas a cartesianas
+
         double x,y,z,distancia;
         x = radio * Math.sin(azimut) * Math.cos(polar);
         y = radio * Math.cos(azimut) * Math.sin(polar);
         z = radio * Math.cos(azimut);
-
         // TODO: Una vez se tienen las coordenadas cartesianas, basta con calcular la distancia euclídea entre ellas:
         distancia = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));
+
         return distancia;
     }
 
