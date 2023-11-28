@@ -37,7 +37,15 @@ public class Porte {
      * @param precio
      */
     public Porte(String id, Nave nave, PuertoEspacial origen, int muelleOrigen, Fecha salida, PuertoEspacial destino, int muelleDestino, Fecha llegada, double precio) {
-
+        this.id = id;
+        this.nave = nave;
+        this.origen = origen;
+        this.muelleOrigen = muelleOrigen;
+        this.salida = salida;
+        this.destino = destino;
+        this.muelleDestino = muelleDestino;
+        this.llegada = llegada;
+        this.precio = precio;
     }
     public String getID() {
         return id;
