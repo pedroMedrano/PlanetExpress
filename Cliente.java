@@ -94,6 +94,6 @@ public class Cliente {
      * @return
      */
     public static boolean correctoEmail(String email) {
-        return false;
+        return true;
     }
 }
