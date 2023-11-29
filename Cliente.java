@@ -26,10 +26,6 @@ public class Cliente {
         this.email = email;
         this.listaEnvios = new ListaEnvios(maxEnvios);
     }
-
-
-
-    
     public String getNombre() {
         return nombre;
     }
@@ -97,6 +93,14 @@ public class Cliente {
      * @param email
      * @return
      */
+
+
+
+
+
+
+
+
     public static boolean correctoEmail(String email) {
         return false;
     }
