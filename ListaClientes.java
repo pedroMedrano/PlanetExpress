@@ -18,17 +18,29 @@ public class ListaClientes {
      * @param capacidad
      */
     public ListaClientes(int capacidad) {
-        
-		
-		
+        //Hecho
+        this.clientes = new Cliente[capacidad];
+        //Hasta aquí
     }
     // TODO: Devuelve el número de clientes que hay en la lista de clientes
     public int getOcupacion() {
-
+        //Hecho
+        return clientes.length;
+        //Hasta aquí
     }
     // TODO: ¿Está llena la lista de clientes?
     public boolean estaLlena() {
-
+        //Hecho
+        boolean llena = false;
+        for(int i=0; i<clientes.length; i++){
+            if(clientes[i] != null){
+                llena = true;
+            }else{
+                llena = false;
+            }
+        }
+        return llena;
+        //hasta aquí
     }
 	// TODO: Devuelve el cliente dada el indice
     public Cliente getCliente(int i) {
@@ -36,7 +48,17 @@ public class ListaClientes {
     }
     // TODO: Inserta el cliente en la lista de clientes
     public boolean insertarCliente(Cliente cliente) {
-
+        //Hecho
+        clientes[clientes.length-1] = cliente;
+        for(int i = clientes.length-2;i >= 0;i--){
+            clientes[i+1] = clientes[i];
+        }
+        clientes[0] = cliente;
+        for(int i=0; i< clientes.length;i++){
+            System.out.println(clientes[i]);
+        }
+        return false;
+        //Hasta aquí
     }
     // TODO: Devuelve el cliente que coincida con el email, o null en caso de no encontrarlo
     public Cliente buscarClienteEmail(String email) {
