@@ -44,7 +44,11 @@ public class ListaClientes {
     }
 	// TODO: Devuelve el cliente dada el indice
     public Cliente getCliente(int i) {
-        return null;
+        //Hecho
+        Scanner teclado = new Scanner(System.in);
+        i = teclado.nextInt();
+        return clientes[i];
+        //Hasta aquí
     }
     // TODO: Inserta el cliente en la lista de clientes
     public boolean insertarCliente(Cliente cliente) {
@@ -75,7 +79,6 @@ public class ListaClientes {
      */
     public Cliente seleccionarCliente(Scanner teclado, String mensaje) {
         Cliente cliente = null;
-
 
         return cliente;
     }
