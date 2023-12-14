@@ -41,7 +41,9 @@ public class ListaPuertosEspaciales {
     }
 	// TODO: Devuelve un puerto espacial dado un indice
     public PuertoEspacial getPuertoEspacial(int i) {
-        return null;
+        //Hecho
+        return lista[i];
+        //hasta aquí
     }
 
     /**

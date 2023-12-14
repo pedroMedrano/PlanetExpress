@@ -17,21 +17,35 @@ public class ListaNaves {
      * @param capacidad
      */
     public ListaNaves(int capacidad) {
-        
-		
-		
+        //Hecho
+        this.naves = new Nave[capacidad];
+        //Hasta aquí
     }
     // TODO: Devuelve el número de naves que hay en la lista
     public int getOcupacion() {
-
+        //Hecho
+        return naves.length;
+        //Hasta aquí
     }
     // TODO: ¿Está llena la lista de naves?
     public boolean estaLlena() {
-
+        //Hecho
+        boolean llena = false;
+        for(int i=0; i<naves.length; i++){
+            if(naves[i] != null){
+                llena = true;
+            }else{
+                llena = false;
+            }
+        }
+        return llena;
+        //Hasta aquí
     }
 	// TODO: Devuelve nave dado un indice
     public Nave getNave(int posicion) {
-        return null;
+        //Hecho
+        return naves[posicion];
+        //Hasta aquí
     }
 
     /**

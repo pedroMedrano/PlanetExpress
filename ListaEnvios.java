@@ -19,16 +19,26 @@ public class ListaEnvios {
      * @param capacidad
      */
     public ListaEnvios(int capacidad) {
-		
-		
+		//Hecho
+		this.envios = new Envio[capacidad];
+        //Hasta aquí
     }
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
-
+        //Hecho
+        return envios.length;
+        //Hasta aquí
     }
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
-
+        boolean llena;
+        for(int i=0;i< envios.length;i++){
+            if(envios[i]!=null){
+                llena = true;
+            }else{
+                llena = false;
+            }
+        }
     }
 	//TODO: Devuelve el envio dado un indice
     public Envio getEnvio(int i) {
