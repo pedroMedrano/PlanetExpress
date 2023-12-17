@@ -28,6 +28,18 @@ public class ListaPuertosEspaciales {
     // TODO: ¿Está llena la lista?
     public boolean estaLlena() {
         //Hecho
+        PuertoEspacial aux = new PuertoEspacial("a","a",0,0,0,0);
+        for(int i=0;i<lista.length-1;i++){//ORDENAR
+            for(int j=0;j<lista.length-1;j++){
+                if(lista[j]==null&&lista[j+1]!=null){
+                    aux = lista[j+1];
+                    lista[j+1] = lista[j];
+                    lista[j] = aux;
+                    j=0;
+                }
+            }
+        }
+
         boolean llena = false;
         for(int i=0; i<lista.length; i++){
             if(lista[i] != null){
