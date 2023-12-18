@@ -30,6 +30,18 @@ public class ListaNaves {
     // TODO: ¿Está llena la lista de naves?
     public boolean estaLlena() {
         //Hecho
+        Nave aux = new Nave("a","a","a",0,0,0);
+        for(int i=0;i<naves.length-1;i++){//ORDENAR
+            for(int j=0;j<naves.length-1;j++){
+                if(naves[j]==null&&naves[j+1]!=null){
+                    aux = naves[j+1];
+                    naves[j+1] = naves[j];
+                    naves[j] = aux;
+                    j=0;
+                }
+            }
+        }
+
         boolean llena = false;
         for(int i=0; i<naves.length; i++){
             if(naves[i] != null){
@@ -54,9 +66,17 @@ public class ListaNaves {
      * @return true en caso de que se añada correctamente, false en caso de lista llena o error
      */
     public boolean insertarNave(Nave nave) {
-
-
+        //Hecho
+        naves[naves.length-1] = nave;
+        for(int i = naves.length-2;i >= 0;i--){
+            naves[i+1] = naves[i];
+        }
+        naves[0] = nave;
+        for(int i=0; i< naves.length;i++){
+            System.out.println(naves[i]);
+        }
         return false;
+        //Hasta aquí
     }
     /**
      * TODO: Buscamos la nave a partir de la matricula pasada como parámetro
@@ -64,8 +84,17 @@ public class ListaNaves {
      * @return la nave que encontramos o null si no existe
      */
     public Nave buscarNave(String matricula) {
-
-        return null;
+        //Hecho
+        Nave[] aux = naves;
+        for(int i=0;i<naves.length;i++){
+            if(naves[i].getMatricula()==matricula){
+                aux[0] = naves[i];
+            }else{
+                aux[0]=null;
+            }
+        }
+        return aux[0];
+        //Hasta aquí
     }
     // TODO: Muestra por pantalla las naves de la lista con el formato indicado en el enunciado
     public void mostrarNaves() {

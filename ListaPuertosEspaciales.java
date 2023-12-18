@@ -83,8 +83,17 @@ public class ListaPuertosEspaciales {
      * @return Puerto espacial que encontramos o null si no existe
      */
     public PuertoEspacial buscarPuertoEspacial(String codigo) {
-
-        return null;
+        //Hecho
+        PuertoEspacial[] aux = lista;
+        for(int i=0;i<lista.length;i++){
+            if(lista[i].getCodigo()==codigo){
+                aux[0] = lista[i];
+            }else{
+                aux[0]=null;
+            }
+        }
+        return aux[0];
+        //Hasta aquí
     }
 
     /**

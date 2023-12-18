@@ -31,6 +31,18 @@ public class ListaClientes {
     // TODO: ¿Está llena la lista de clientes?
     public boolean estaLlena() {
         //Hecho
+        Cliente aux = new Cliente("a","a","a",0);
+        for(int i=0;i<clientes.length-1;i++){//ORDENAR
+            for(int j=0;j<clientes.length-1;j++){
+                if(clientes[j]==null&&clientes[j+1]!=null){
+                    aux = clientes[j+1];
+                    clientes[j+1] = clientes[j];
+                    clientes[j] = aux;
+                    j=0;
+                }
+            }
+        }
+
         boolean llena = false;
         for(int i=0; i<clientes.length; i++){
             if(clientes[i] != null){
@@ -40,13 +52,11 @@ public class ListaClientes {
             }
         }
         return llena;
-        //hasta aquí
+        //Hasta aquí
     }
 	// TODO: Devuelve el cliente dada el indice
     public Cliente getCliente(int i) {
         //Hecho
-        Scanner teclado = new Scanner(System.in);
-        i = teclado.nextInt();
         return clientes[i];
         //Hasta aquí
     }
@@ -66,7 +76,17 @@ public class ListaClientes {
     }
     // TODO: Devuelve el cliente que coincida con el email, o null en caso de no encontrarlo
     public Cliente buscarClienteEmail(String email) {
-
+        //Hecho
+        Cliente[] aux = clientes;
+        for(int i=0;i<clientes.length;i++){
+            if(clientes[i].getEmail()==email){
+                aux[0] = clientes[i];
+            }else{
+                aux[0]=null;
+            }
+        }
+        return aux[0];
+        //Hasta aquí
     }
 
     /**

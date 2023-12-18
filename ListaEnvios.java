@@ -31,18 +31,33 @@ public class ListaEnvios {
     }
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
-        boolean llena;
-        for(int i=0;i< envios.length;i++){
-            if(envios[i]!=null){
+        //Hecho
+        Envio aux = new Envio("a",Porte porte = new Porte());
+        for(int i=0;i<envios.length-1;i++){//ORDENAR
+            for(int j=0;j<envios.length-1;j++){
+                if(envios[j]==null&&envios[j+1]!=null){
+                    aux = envios[j+1];
+                    envios[j+1] = envios[j];
+                    envios[j] = aux;
+                    j=0;
+                }
+            }
+        }
+
+        boolean llena = false;
+        for(int i=0; i<envios.length; i++){
+            if(envios[i] != null){
                 llena = true;
             }else{
                 llena = false;
             }
         }
+        return llena;
+        //Hasta aquí
     }
 	//TODO: Devuelve el envio dado un indice
     public Envio getEnvio(int i) {
-        return null;
+        return envios[i];
     }
 
     /**
@@ -51,8 +66,17 @@ public class ListaEnvios {
      * @return true en caso de que se añada correctamente, false en caso de lista llena o error
      */
     public boolean insertarEnvio(Envio envio) {
-
+        //Hecho
+        envios[envios.length-1] = envio;
+        for(int i = envios.length-2;i >= 0;i--){
+            envios[i+1] = envios[i];
+        }
+        envios[0] = envio;
+        for(int i=0; i< envios.length;i++){
+            System.out.println(envios[i]);
+        }
         return false;
+        //Hasta aquí
     }
 
     /**
@@ -61,9 +85,17 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String localizador) {
-
-
-        return null;
+        //Hecho
+        Envio[] aux = envios;
+        for(int i=0;i<envios.length;i++){
+            if(envios[i].getLocalizador()==localizador){
+                aux[0] = envios[i];
+            }else{
+                aux[0]=null;
+            }
+        }
+        return aux[0];
+        //Hasta aquí
     }
 
     /**
