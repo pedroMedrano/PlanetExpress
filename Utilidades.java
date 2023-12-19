@@ -73,9 +73,10 @@ public class Utilidades {
      */
     public static char leerLetra(Scanner teclado, String mensaje, char minimo, char maximo) {
         char letra;
-
-
-
+        do{
+            System.out.println(mensaje);
+            letra = teclado.next().charAt(0);
+        }while(letra>maximo||letra<minimo);
         return letra;
     }
 
