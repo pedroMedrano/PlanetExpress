@@ -2,8 +2,8 @@
 /**
  * Description of the class
  *
- * @author
- * @author
+ * @author Daniel García Martínez bu0275
+ * @author Pedro Medrano Sánchez bu0433
  * @version     1.0
  */
 public class Nave {
@@ -59,7 +59,7 @@ public class Nave {
      */
     public String toString() {
         //Hecho
-        return  marca+" "+modelo+" ("+matricula+") "+columnas*filas+" contenedores, hasta "+alcance+" UA";
+        return getMarca()+" "+getModelo()+"("+getMatricula()+") "+getColumnas()*getFilas()+" contenedores, hasta "+getAlcance()+" UA";
         //Hasta aquí
     }
 
@@ -69,8 +69,7 @@ public class Nave {
      * @return ejemplo del formato -> "Planet Express One (EP-245732X)"
      */
     public String toStringSimple() {
-        //Hecho
-        return marca+" "+modelo+" ("+matricula+")";
-        //Hasta aquí
+        return getMarca()+" "+getModelo()+"("+getMatricula()+")";
+
     }
 }

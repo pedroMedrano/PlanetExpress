@@ -6,8 +6,8 @@ import java.util.Scanner;
 /**
  * Description of the class
  *
- * @author
- * @author
+ * @author Daniel García Martínez bu0275
+ * @author Pedro Medrano Sánchez bu0433
  * @version     1.0
  */
 public class Envio {
@@ -86,10 +86,25 @@ public class Envio {
      *     Precio: 13424,56 SSD
      */
     public boolean generarFactura(String fichero) {
+        PrintWriter salida =null;
+        boolean escrito = true;
         try {
-
-
-
+            salida = new PrintWriter(fichero);
+            salida.printf("""
+                    -----------------------------------------------------
+                    ----------- Factura del envío PM1111AAAABBBBC -------
+                    -----------------------------------------------------
+                    
+                    Porte: %s
+                    Destino: %s (%s) T%s
+                    Salida: %s
+                    Llegada: %s
+                    Cliente: %s %s, %s
+                    Hueco: %s
+                    Precio: %.2f€""",
+                    this.localizador,porte.getID(),porte.getOrigen().getNombre(),porte.getOrigen().getCodigo(),porte.getMuelleOrigen(),
+                    porte.getDestino(),porte.getDestino().getCodigo(),porte.getMuelleDestino(),porte.getSalida(),porte.getLlegada(),
+                    cliente.getNombre(),cliente.getApellidos(),cliente.getEmail(),getHueco(),getPrecio());
 
 
 
@@ -97,6 +112,8 @@ public class Envio {
 
             return true;
         } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            escrito =false;
             return false;
         }
     }
