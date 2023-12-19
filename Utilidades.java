@@ -18,9 +18,12 @@ public class Utilidades {
      * @return int numero
      */
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
+        //Hecho
         int numero;
-
-
+        do{
+            System.out.println(mensaje);
+            numero = teclado.nextInt();
+        }while (numero>maximo||numero<minimo);
         return numero;
     }
 
@@ -33,10 +36,14 @@ public class Utilidades {
      * @return long numero
      */
     public static long leerNumero(Scanner teclado, String mensaje, long minimo, long maximo) {
+        //Hecho
         long numero;
-
-
+        do{
+            System.out.println(mensaje);
+            numero = teclado.nextInt();
+        }while (numero>maximo||numero<minimo);
         return numero;
+        //Hasta aquí
     }
 
     /**
@@ -49,7 +56,10 @@ public class Utilidades {
      */
     public static double leerNumero(Scanner teclado, String mensaje, double minimo, double maximo) {
         double numero;
-
+        do{
+            System.out.println(mensaje);
+            numero = teclado.nextInt();
+        }while(numero>maximo||numero<minimo);
         return numero;
     }
 

@@ -63,7 +63,7 @@ public class PuertoEspacial {
         //Hecho
         double x,y,z,distancia;
         x = destino.getRadio() * Math.sin(destino.getAzimut()) * Math.cos(destino.getPolar());
-        y = destino.getRadio() * Math.cos(destino.getAzimut()) * Math.sin(destino.getPolar());
+        y = destino.getRadio() * Math.sin(destino.getAzimut()) * Math.sin(destino.getPolar());
         z = destino.getRadio() * Math.cos(destino.getAzimut());
         // TODO: Una vez se tienen las coordenadas cartesianas, basta con calcular la distancia euclídea entre ellas:
         distancia = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));
