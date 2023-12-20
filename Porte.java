@@ -200,8 +200,21 @@ public class Porte {
      *     10[ ][ ][ ]
      */
     public void imprimirMatrizHuecos() {
+        String huecoA="[", huecoB="]", medio, abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
         System.out.print("  ");
+        for(int columna = 1; columna<= nave.getColumnas();columna++){
+            System.out.printf(" %c",abecedario.charAt(columna-1));
+        }
+        System.out.print("\n");
 
+        for(int fila=1; fila<=nave.getFilas();fila++){
+            if(fila<10){
+                System.out.printf(" "+fila);
+            }else{
+                System.out.print(fila);
+            }
+
+        }
     }
 
     /**
