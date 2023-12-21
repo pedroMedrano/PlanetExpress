@@ -200,7 +200,7 @@ public class Porte {
      *     10[ ][ ][ ]
      */
     public void imprimirMatrizHuecos() {
-        String huecoA="[", huecoB="]", medio, abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+        String medio, abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         System.out.print("  ");
         for(int columna = 1; columna<= nave.getColumnas();columna++){
             System.out.printf(" %c",abecedario.charAt(columna-1));
@@ -214,6 +214,15 @@ public class Porte {
                 System.out.print(fila);
             }
 
+            for(int hueco = 1;hueco <= nave.getColumnas();hueco++){
+                if(huecos[fila-1][hueco-1]){
+                    medio = "X";
+                }else{
+                    medio=" ";
+                }
+                System.out.printf("[%s]",medio);
+            }
+            System.out.print("\n");
         }
     }
 
@@ -226,7 +235,15 @@ public class Porte {
     public boolean generarListaEnvios(String fichero) {
         PrintWriter pw = null;
         try {
-
+            pw = new PrintWriter(fichero);
+            pw.println("----------------------------------------------------");
+            pw.println("--------- Factura del envío PM1111AAAABBBBC --------");
+            pw.println("----------------------------------------------------");
+            for(int i=0;i < (nave.getFilas()*nave.getColumnas());i++){
+                if(listaEnvios.getEnvio(i) != null){
+                    System.out.printf("Porte: %s\nOrigen: %s\nDestino: %s\nSalida: %s\nLlegada: %s\nCliente: %s");
+                }
+            }
             return true;
         } catch (FileNotFoundException e) {
             return false;
@@ -242,7 +259,7 @@ public class Porte {
      * @return ejemplo -> "PM0123"
      */
     public static String generarID(Random rand) {
-        return "PM";
+        return "PM"+rand.nextInt(9999);
     }
 
     /**
@@ -258,7 +275,70 @@ public class Porte {
      * @return
      */
     public static Porte altaPorte(Scanner teclado, Random rand, ListaPuertosEspaciales puertosEspaciales, ListaNaves naves, ListaPortes portes) {
+        PuertoEspacial origen;
+        PuertoEspacial destino;
+        String codigoOrigen;
+        String codigoDestino;
+        String matricula;
+        int muelleOrigen;
+        int muelleDestino;
+        Nave nave;
+        Fecha salida;
+        Fecha llegada;
+        double precio;
+        do{
+            System.out.print("Intriducir el código del puerto espacial de origen: ");
+            codigoOrigen=teclado.next();
+            origen = puertosEspaciales.buscarPuertoEspacial(codigoOrigen);
+            if(origen==null){
+                System.out.println("Puerto espacial no encontrado");
+            }
+        }while(origen==null);
 
-        return null;
+            do{
+                System.out.print("Introducir el muelle de origen (1 - "+origen.getMuelles()+")");
+                muelleOrigen = teclado.nextInt();
+            }while(muelleOrigen<1||muelleOrigen>origen.getMuelles());
+
+            do{
+                System.out.print("Intriducir el código del puerto espacial de destino: ");
+                codigoDestino = teclado.next();
+                destino = puertosEspaciales.buscarPuertoEspacial(codigoDestino);
+                if(destino == null){
+                    System.out.println("Puerto espacial no encontrado");
+                }
+            }while(destino==null);
+
+            do{
+                System.out.print("Introducir el muelle de destino: (1 - "+destino.getMuelles()+")");
+                muelleDestino = teclado.nextInt();
+            }while(muelleDestino<1||muelleDestino>destino.getMuelles());
+
+            do{
+                System.out.print("Introducir la matricula de la nave: ");
+                matricula=teclado.next();
+                nave = naves.buscarNave(matricula);
+                if(nave !=null && nave.getAlcance()<origen.distancia(destino)){
+                    System.out.println("La nave elegida no tiene suficiente alcance (menos de "+origen.distancia(destino)+" km");
+                    nave=null;
+                }else if(nave==null){
+                    System.out.println("No hemos encontrado la matrícula introducida");
+                }
+            }while(nave==null);
+
+            do{
+                System.out.println("(La salida debe ser anterior a la llegada)");
+                salida = Utilidades.leerFechaHora(teclado, "Fecha salida: ");
+                llegada = Utilidades.leerFechaHora(teclado,"Fecha de llegada: ");
+            }while(llegada.anterior(salida));
+
+            do{
+                System.out.print("Introducir el precio del envío: ");
+                precio = teclado.nextDouble();
+            }while(precio<0);
+
+            Porte porte = new Porte(generarID(rand),nave,origen,muelleOrigen,salida,destino,muelleDestino,llegada,precio);
+            portes.insertarPorte(porte);
+        return porte;
     }
 }
