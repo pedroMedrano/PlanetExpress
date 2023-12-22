@@ -152,11 +152,8 @@ public class ListaEnvios {
      * @return
      */
     public boolean aniadirEnviosCsv(String fichero) {
-        boolean correcto = true;
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(fichero);
-            for(int i = 0; i < )
 
             return true;
         } catch (Exception e) {

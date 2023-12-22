@@ -49,7 +49,23 @@ public class PlanetExpress {
      * @param ficheroEnvios
      */
     public void cargarDatos(String ficheroPuertos, String ficheroNaves, String ficheroPortes, String ficheroClientes, String ficheroEnvios) {
+    this.listaPuertosEspaciales = ListaPuertosEspaciales.leerPuertosEspacialesCsv(ficheroPuertos,maxPuertosEspaciales);
+    this.listaNaves = ListaNaves.leerNavesCsv(ficheroNaves,maxNaves);
+    this.listaClientes = ListaClientes.leerClientesCsv(ficheroClientes,maxClientes,maxEnviosPorCliente);
+    this.listaPortes =ListaPortes.leerPortesCsv(ficheroPortes,maxPortes,listaPuertosEspaciales,listaNaves);
 
+    if(this.listaPuertosEspaciales !=null && this.listaNaves !=null && this.listaClientes !=null){
+
+        Cliente cliente;
+        for(int i = 0; i<listaClientes.getOcupacion(); i++){
+            cliente = listaClientes.getCliente(i);
+            for(int j = 0; j<cliente.();j++){
+                if(cliente.getEnvio(j) !=null){
+                    this.l
+                }
+            }
+        }
+    }
 
 
     }
@@ -65,8 +81,15 @@ public class PlanetExpress {
      * @param ficheroEnvios
      */
     public void guardarDatos(String ficheroPuertos, String ficheroNaves, String ficheroPortes, String ficheroClientes, String ficheroEnvios) {
+        boolean puertoEspacial, nave, porte, cliente, envio, correcto = false;
 
+        puertoEspacial = this.listaPuertosEspaciales.escribirPuertosEspacialesCsv(ficheroPuertos);
+        nave = this.listaNaves.escribirNavesCsv(ficheroNaves);
+        porte = this.listaPortes.escribirPortesCsv(ficheroPortes);
+        cliente = this.listaClientes.escribirClientesCsv(ficheroClientes);
+        billete = this.
 
+//TERMINAR
 
     }
     public boolean maxPortesAlcanzado() {
