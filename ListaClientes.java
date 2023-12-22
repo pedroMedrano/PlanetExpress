@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -18,65 +19,38 @@ public class ListaClientes {
      * @param capacidad
      */
     public ListaClientes(int capacidad) {
-        //Hecho
         this.clientes = new Cliente[capacidad];
-        //Hasta aquí
     }
     // TODO: Devuelve el número de clientes que hay en la lista de clientes
     public int getOcupacion() {
-        //Hecho
-        return clientes.length;
-        //Hasta aquí
+        int ocupado=0;
+        for(int i=0;i< clientes.length;i++){
+            if(clientes[i]!=null){
+                ocupado++;
+            }
+        }
+        return ocupado;
     }
     // TODO: ¿Está llena la lista de clientes?
     public boolean estaLlena() {
-        //Hecho
-        Cliente aux = new Cliente("a","a","a",0);
-        for(int i=0;i<clientes.length-1;i++){//ORDENAR
-            for(int j=0;j<clientes.length-1;j++){
-                if(clientes[j]==null&&clientes[j+1]!=null){
-                    aux = clientes[j+1];
-                    clientes[j+1] = clientes[j];
-                    clientes[j] = aux;
-                    j=0;
-                }
-            }
-        }
-
-        boolean llena = false;
-        for(int i=0; i<clientes.length; i++){
-            if(clientes[i] != null){
-                llena = true;
-            }else{
-                llena = false;
-            }
-        }
-        return llena;
-        //Hasta aquí
+        return getOcupacion()>=clientes.length;
     }
 	// TODO: Devuelve el cliente dada el indice
     public Cliente getCliente(int i) {
-        //Hecho
         return clientes[i];
-        //Hasta aquí
     }
     // TODO: Inserta el cliente en la lista de clientes
     public boolean insertarCliente(Cliente cliente) {
-        //Hecho
-        clientes[clientes.length-1] = cliente;
-        for(int i = clientes.length-2;i >= 0;i--){
-            clientes[i+1] = clientes[i];
+        if(estaLlena()==false){
+            clientes[getOcupacion()] = cliente;
+            return true;
+        }else{
+            System.out.println("Sintiendolo mucho el envio está completo.");
+            return false;
         }
-        clientes[0] = cliente;
-        for(int i=0; i< clientes.length;i++){
-            System.out.println(clientes[i]);
-        }
-        return false;
-        //Hasta aquí
     }
     // TODO: Devuelve el cliente que coincida con el email, o null en caso de no encontrarlo
     public Cliente buscarClienteEmail(String email) {
-        //Hecho
         Cliente[] aux = clientes;
         for(int i=0;i<clientes.length;i++){
             if(clientes[i].getEmail()==email){
@@ -86,7 +60,6 @@ public class ListaClientes {
             }
         }
         return aux[0];
-        //Hasta aquí
     }
 
     /**
@@ -110,18 +83,29 @@ public class ListaClientes {
      * @return
      */
     public boolean escribirClientesCsv(String fichero) {
-
-
+        boolean aux=true;
+        PrintWriter pw = null;
         try {
-
-
-
+            pw = new PrintWriter(fichero);
+            for (int i=0; i<getOcupacion()-1;i++){
+                pw.print(clientes[i].getNombre()+";"+clientes[i].getApellidos()+";"+clientes[i].getEmail());
+            }
         } catch (FileNotFoundException e) {
-            return false;
+            System.out.println(e.getMessage());
+            aux = false;
         } finally {
-
+            try{
+                if(pw != null){
+                    pw.close();
+                }else{
+                    aux = false;
+                }
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                aux = false;
+            }
         }
-        return true;
+        return aux;
     }
 
     /**
@@ -133,13 +117,27 @@ public class ListaClientes {
      * @return lista de clientes
      */
     public static ListaClientes leerClientesCsv(String fichero, int capacidad, int maxEnviosPorCliente) {
-
+        ListaClientes listaClientes = new ListaClientes(capacidad);
+        Scanner sc = null;
         try {
-
+            sc = new Scanner(new FileReader(fichero));
+            while(sc.hasNext()){
+                String[] linea = sc.nextLine().split(";");
+                String nombre = linea[0];
+                String apellidos = linea[1];
+                String email = linea[2];
+                listaClientes.insertarCliente(new Cliente(nombre,apellidos,email,maxEnviosPorCliente));
+            }
         } catch (FileNotFoundException e) {
-            return null;
+            System.out.println(e.getMessage());
         } finally {
-
+            if (sc != null){
+                try{
+                    sc.close();
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
         }
         return listaClientes;
     }
