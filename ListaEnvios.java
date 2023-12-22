@@ -1,14 +1,13 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import jdk.nashorn.internal.runtime.ECMAException;
+
+import java.io.*;
 import java.util.Scanner;
 
 /**
  * Description of the class
  *
- * @author
- * @author
+ * @author Daniel García Martínez bu0275
+ * @author Pedro Medano Sánchez bu0433
  * @version     1.0
  */
 public class ListaEnvios {
@@ -106,9 +105,14 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
-
-
-        return null;
+        Envio envio = null;
+        for(int i =0;i<=envios.length;i++){
+            if(envios[i].getFila() == fila && envios[i].getColumna()==columna && envios[i].getLocalizador().startsWith(idPorte)){
+                envio = envios[i];
+                i = envios.length;
+            }
+        }
+        return envio;
     }
 
     /**
@@ -117,8 +121,15 @@ public class ListaEnvios {
      * @return True si se ha borrado correctamente, false en cualquier otro caso
      */
     public boolean eliminarEnvio (String localizador) {
+        boolean eliminar = false;
+        for(int i =0; i<=envios.length;i++){
+            if(envios[i].getLocalizador()==localizador){
+                envios[i]=null;
+                eliminar = true;
+            }
+        }
 
-        return false;
+        return eliminar;
     }
 
     /**
@@ -126,7 +137,9 @@ public class ListaEnvios {
      * en el enunciado
      */
     public void listarEnvios() {
-
+        for(int i =1;i<= envios.length;i++){
+            System.out.println(i+". "+envios[i-1].toString());
+        }
     }
 
     /**
@@ -138,10 +151,15 @@ public class ListaEnvios {
      * @return
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
-        Envio envio = null;
-
-
-        return envio;
+        String localizador;
+        do{
+            System.out.println(mensaje);
+            localizador = teclado.next();
+            if(this.buscarEnvio(localizador) ==null){
+                System.out.println("Envío no encontrado.");
+            }
+        }while (this.buscarEnvio(localizador)==null);
+        return this.buscarEnvio(localizador);
     }
 
 
@@ -153,14 +171,29 @@ public class ListaEnvios {
      */
     public boolean aniadirEnviosCsv(String fichero) {
         PrintWriter pw = null;
+        boolean correcto = true;
+        Scanner sc = null;
         try {
-
-            return true;
+            pw = new PrintWriter(fichero);
+            sc = new Scanner(new FileReader(fichero));
+            while (sc.hasNextLine()){
+                sc.hasNextLine();
+            }
+            for (int i =0; i<getOcupacion()-1;i++){
+                pw.printf("%s;%s;%s;%s;%d;2f\n",envios[i].getLocalizador(),envios[i].getCliente().toString(),envios[i].getFila(),envios[i].getColumna(),envios[i].getPrecio());
+            }
         } catch (Exception e) {
-            return false;
+            System.out.println(e.getMessage());
+            correcto=false;
         } finally {
-
+            if(pw !=null){
+                pw.close();;
+            }
+            else if(sc !=null){
+                sc.close();
+            }
         }
+        return correcto;
     }
 
     /**
@@ -172,10 +205,32 @@ public class ListaEnvios {
     public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
         Scanner sc = null;
         try {
+            sc= new Scanner(new FileReader(ficheroEnvios));
+            while(sc.hasNext()){
+                String[] linea =sc.nextLine().split(";");
+                String localizador = linea[0];
+                Porte porte = portes.buscarPorte(linea[1]);
+                Cliente cliente = clientes.buscarClienteEmail(linea[2]);
+                int filas = Integer.parseInt(linea[3]);
+                int columnas = Integer.parseInt(linea[4]);
+                double precio = Double.parseDouble(linea[5]);
+
+                Envio envio = new Envio(localizador,porte,cliente,filas,columnas,precio);
+                cliente.aniadirEnvio(envio);
+                porte.ocuparHueco(envio);
+            }
 
         } catch (FileNotFoundException e) {
-            System.out.println("No se ha encontrado el fichero de envíos");
+            System.out.println(e.getMessage());
         } finally {
+            if(sc !=null){
+                try{
+                    sc.close();
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+
+                }
+            }
 
         }
     }
