@@ -5,8 +5,8 @@ import java.util.Scanner;
 /**
  * Description of the class
  *
- * @author
- * @author
+ * @author Daniel García Martínez bu0275
+ * @author Pedro Medrano Sánchez bu0433
  * @version     1.0
  */
 public class ListaPortes {

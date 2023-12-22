@@ -2,7 +2,7 @@
 /**
  * Description of the class
  *
- * @aut hor
+ * @author
  * @author
  * @version     1.0
  */

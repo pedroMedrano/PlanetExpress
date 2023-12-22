@@ -132,7 +132,7 @@ public class Utilidades {
             teclado.nextLine();
             minuto = leerNumero(teclado,"Introducir minuto: ",0,59);
             teclado.nextLine();
-            segundo = leerNumero(teclado"Introducir segundo: ",0,59);
+            segundo = leerNumero(teclado,"Introducir segundo: ",0,59);
             if(Fecha.comprobarFecha(dia,mes,anio)==false||Fecha.comprobarHora(hora,minuto,segundo)==false){
                 System.out.println("La fecha o la hora son incorrectas.");
             }
