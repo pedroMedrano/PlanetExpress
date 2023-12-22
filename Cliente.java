@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -38,17 +37,16 @@ public class Cliente {
     }
     // TODO: Texto que debe generar: Zapp Brannigan, zapp.brannigan@dop.gov
     public String toString() {
+        //Hecho
         return nombre+" "+apellidos+", "+email;
-
+        //Hasta aquí
     }
     // TODO: Devuelve un booleano que indica si se ha alcanzado el número máximo de envíos
     public boolean maxEnviosAlcanzado() {
-        return
 
     }
     // TODO: Devuelve un envío en función de su posición
     public Envio getEnvio(int i) {
-        return  listaEnvios.getEnvio(i);
 
     }
     public ListaEnvios getListaEnvios() {
@@ -56,7 +54,6 @@ public class Cliente {
     }
     // TODO: Añade un envío al cliente
     public boolean aniadirEnvio(Envio envio) {
-        return  listaEnvios.insertarEnvio(envio);
 
     }
     public Envio buscarEnvio(String localizador) {
@@ -64,19 +61,14 @@ public class Cliente {
     }
     // TODO: Elimina el envío de la lista de envíos del pasajero
     public boolean cancelarEnvio(String localizador) {
-        return listaEnvios.eliminarEnvio(localizador);
 
     }
     public void listarEnvios() {
         listaEnvios.listarEnvios();
-        for(int i =1;i<= nu)
     }
     // Encapsula la funcionalidad seleccionarEnvio de ListaEnvios
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
-        String localizador;
-        System.out.println(mensaje);
-        localizador = teclado.nextLine();
-        return buscarEnvio(localizador);
+        return listaEnvios.seleccionarEnvio(teclado, mensaje);
     }
 
 
@@ -90,25 +82,8 @@ public class Cliente {
      * @return Cliente
      */
     public static Cliente altaCliente(Scanner teclado, ListaClientes clientes, int maxEnvios) {
-        String nombre, apellidos, email;
-        teclado.nextLine();
-        System.out.print("Introduce el nombre: ");
-        nombre = teclado.nextLine();
-        System.out.print("Introduce los apellidos: ");
-        apellidos= teclado.nextLine();
 
-        do {
-            System.out.print("Introduce el email: ");
-            email = teclado.nextLine();
-            if(correctoEmail(email)){
-                System.out.println("Email incorrecto.");
-            }else if(clientes.buscarClienteEmail(email) != null){
-                System.out.println("Este email ya existe.");
-            }
-        }while (correctoEmail(email) || clientes.buscarClienteEmail(email) != null);
 
-        Cliente cliente = new Cliente(nombre, apellidos, email, maxEnvios);
-        clientes.insertarCliente(cliente);
 
 
         return new Cliente(nombre, apellidos, email, maxEnvios);
@@ -129,19 +104,6 @@ public class Cliente {
 
 
     public static boolean correctoEmail(String email) {
-        boolean correcto;
-        if(!email.contains("@")) {
-            return true;
-        }else {
-            String[] usuario = email.split("@");
-            if(!Objects.equals(usuario[1],"upm.es")&& !Objects.equals(usuario[1],"alumnos.upm")){
-                correcto=false;
-            }else if(usuario[0].startsWith(".") || usuario[0].endsWith(".")) {
-                correcto = false;
-            }else {
-               correcto = true;
-            }
-        }
-        return correcto;
+        return false;
     }
 }
